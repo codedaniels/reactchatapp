@@ -14,6 +14,7 @@ const DUMMY_DATA = [
         text: 'Good to hear! I am great as well'
     }
 ]
+
 class MessageList extends React.Component {
     render() {
         return (

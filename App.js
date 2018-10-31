@@ -1,7 +1,7 @@
 import React from 'react'
 import Chatkit from '@pusher/chatkit'
-import MessageList from '.components/MessageList'
-import SendMessageFrom from './components/SendMessageForm'
+import MessageList from './components/MessageList'
+import SendMessageForm from './components/SendMessageForm'
 import RoomList from './components/RoomList'
 import NewRoomForm from './components/NewRoomForm'
 
@@ -21,12 +21,12 @@ class App extends React.Component {
         this.subscribeToRoom = this.subscribeToRoom.bind(this)
     }
 
-    componendDidMount () {
-        const chatManager = new Chatkit.chatManager({
-            instanceLocator: instanceLocator,
-            userId: "daniel",
-            tokenProvider: new Chatkit.tokenProvider({
-                url: tokenUrl
+    componentDidMount () {
+        const chatManager = new Chatkit.ChatManager({
+                instanceLocator: instanceLocator,
+                userId: "perborgen",
+                tokenProvider: new Chatkit.TokenProvider({
+                    url: tokenUrl
             })
         })
 
@@ -35,13 +35,13 @@ class App extends React.Component {
             this.currentUser = currentUser
             return this.currentUser.getJoinableRooms()
             .then(joinableRooms => {
-                this.setState ({
+                this.setState({
                     joinableRooms,
-
+                    joinedRooms: this.currentUser.rooms
                 })
-            })
+            })           
         })
-        .catch(err => console.log ('error connecting: ', err))
+        .catch(err => console.log('error connecting: ', err))
     }
 
     sendMessage(text) {
@@ -59,7 +59,7 @@ class App extends React.Component {
         .catch(err => console.log(err))
     }
 
-    subsribeToRoom(roomId) {
+    subscribeToRoom(roomId) {
         this.setState({
             messages: []
         });
@@ -85,7 +85,7 @@ class App extends React.Component {
         })
         .catch(err => console.log('error on subscribing: ', err))
     }
-    
+
     render() {
         return (
             <div className="app">
@@ -96,8 +96,8 @@ class App extends React.Component {
                 <MessageList
                     currentRoomId={this.state.currentRoomId}
                     messages={this.state.messages} />
-                <NewRoomForm onSubmit={this.createRoom.bind(this)} />>
-                <SendMessageFrom
+                <NewRoomForm onSubmit={this.createRoom.bind(this)} />
+                <SendMessageForm
                     sendMessage={this.sendMessage}
                     disabled={!this.state.currentRoomId} />
             </div>

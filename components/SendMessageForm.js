@@ -9,13 +9,13 @@ class SendMessageForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+    
     handleChange(e) {
         this.setState({
             message: e.target.value
         });
     }
-
+    
     handleSubmit(e) {
         e.preventDefault();
         this.props.sendMessage(this.state.message);
@@ -23,9 +23,9 @@ class SendMessageForm extends React.Component {
             message: ''
         })
     }
-
+    
     render() {
-        return(
+        return (
             <form className="send-message-form" onSubmit={this.handleSubmit}>
                 <input
                     placeholder="Type message and hit ENTER"
